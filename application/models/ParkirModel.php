@@ -11,6 +11,18 @@ class ParkirModel extends CI_Model
 		return $this->db->get('parkir')->result();
 	}
 
+	public function get_jumlah_parkir($status)
+	{
+		$jumlah_parkir = $this->db->select('count(jenis_kendaraan_id) as jumlah, jenis_kendaraan')
+			->from('parkir')
+			->join('jenis_kendaraan', 'parkir.jenis_kendaraan_id = jenis_kendaraan.id_jenis_kendaraan')
+			->where('status', $status)
+			->group_by('jenis_kendaraan')
+			->get()->result();
+
+		return $jumlah_parkir;
+	}
+
 	public function get_parkir($id_parkir)
 	{
 		$this->db->join('users', 'users.id_user = parkir.petugas_id', 'left');
@@ -33,7 +45,7 @@ class ParkirModel extends CI_Model
 	public function get_jumlah_kas($type = "")
 	{
 		$jumlah = $this->db->select_sum('jumlah')
-						->from('kas');
+			->from('kas');
 
 		if ($type == 'tahun') {
 			$jumlah->where("YEAR(tanggal_pemasukan)", date('Y'));

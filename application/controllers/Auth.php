@@ -108,7 +108,7 @@ class Auth extends CI_Controller
 		} else {
 			$input = (object) $this->input->post();
 
-			$insert = $this->user->edit_user($input, $this->session->id_user);
+			$insert = $this->user->edit_user($input, $this->session->id_user, 'setting_profile');
 			$this->session->set_flashdata($insert->type_message, $insert->message);
 
 			redirect('setting-profile');

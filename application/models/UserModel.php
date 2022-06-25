@@ -48,26 +48,35 @@ class UserModel extends CI_Model
 		return $response;
 	}
 
-	public function edit_user($input, $id_user)
+	public function edit_user($input, $id_user, $type)
 	{
 		$response = create_response();
 
 		$user = $this->db->get_where('users', ['username' => $input->username]);
 
-		if ($user->row()->username == $this->session->username || $user->num_rows() == 0) {
+		$return = NULL;
+
+		if ($type == 'setting_profile' || $user->row()->username == $this->session->username) {
+			$return = $user->row()->username == $this->session->username;
+		} else if ($type == 'edit_user') {
+			$return = $user->row()->username != $this->session->username;
+		}
+
+		// dd($user->row());
+		if ($return || $user->num_rows() == 0) {
 			$data_user = [
 				'username' => $input->username,
 				'nama_lengkap' => ucwords(strtolower($input->nama_lengkap)),
 			];
 
 			if ($input->role != NULL) {
-				$data_user = [
+				$data_user += [
 					'role_id' => $input->role
 				];
 			}
 
 			if ($input->password != NULL) {
-				$data_user = [
+				$data_user += [
 					'password' => password_hash($input->password, PASSWORD_DEFAULT)
 				];
 			}

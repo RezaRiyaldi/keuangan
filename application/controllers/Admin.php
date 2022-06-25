@@ -168,7 +168,7 @@ class Admin extends CI_Controller
 		} else {
 			$input = (object) $this->input->post();
 
-			$insert = $this->user->edit_user($input, $id_user);
+			$insert = $this->user->edit_user($input, $id_user, 'edit_user');
 			$this->session->set_flashdata($insert->type_message, $insert->message);
 
 			redirect('user-manage');
