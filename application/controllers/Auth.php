@@ -59,6 +59,10 @@ class Auth extends CI_Controller
 
 	public function setting_profile()
 	{
+		if (!$this->session->logged_in) {
+			redirect('user/login');
+		}
+
 		$this->form_validation->set_rules(
 			'username',
 			'Username',
