@@ -5,9 +5,10 @@ class Parkir extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('ParkirModel', 'parkir');
+
 		if (!$this->session->logged_in) {
 			redirect('/');
-		} else if ($this->session->role != 'Parkir') {
+		} else if ($this->session->role != 'Parkir' && $this->session->role != 'Admin') {
 			redirect('403');
 		}
 	}
