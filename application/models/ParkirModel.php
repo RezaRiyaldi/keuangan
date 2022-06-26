@@ -42,18 +42,19 @@ class ParkirModel extends CI_Model
 		return $this->db->get('jenis_kendaraan')->row();
 	}
 
-	public function get_jumlah_kas($type = "")
+	public function get_jumlah_kas($jangka, $tipe_transaksi)
 	{
 		$jumlah = $this->db->select_sum('jumlah')
-			->from('kas');
+			->from('kas')
+			->where('tipe_transaksi', $tipe_transaksi);
 
-		if ($type == 'tahun') {
-			$jumlah->where("YEAR(tanggal_pemasukan)", date('Y'));
-		} else if ($type == 'bulan') {
-			$jumlah->where("YEAR(tanggal_pemasukan)", date('Y'));
-			$jumlah->where("MONTH(tanggal_pemasukan)", date('m'));
-		} else if ($type == 'hari') {
-			$jumlah->where("tanggal_pemasukan", date('Y-m-d'));
+		if ($jangka == 'tahun') {
+			$jumlah->where("YEAR(tanggal_transaksi)", date('Y'));
+		} else if ($jangka == 'bulan') {
+			$jumlah->where("YEAR(tanggal_transaksi)", date('Y'));
+			$jumlah->where("MONTH(tanggal_transaksi)", date('m'));
+		} else if ($jangka == 'hari') {
+			$jumlah->where("tanggal_transaksi", date('Y-m-d'));
 		}
 
 		$jumlah = $jumlah->get()->row();
@@ -106,14 +107,17 @@ class ParkirModel extends CI_Model
 
 		$data_parkir = [
 			'status' => 'non-active',
+			'jam_keluar' => date('H:i:s'),
+			'tanggal_keluar' => date('Y-m-d'),
 			'harga_parkir' => $harga_parkir,
 			'petugas_id' => $this->session->id_user
 		];
 
 		$data_kas = [
-			'jenis_pemasukan' => 'Parkir',
+			'tipe_transaksi' => 1,
+			'jenis_transaksi' => 'Parkir',
 			'jumlah' => $harga_parkir,
-			'tanggal_pemasukan' => date('Y-m-d'),
+			'tanggal_transaksi' => date('Y-m-d'),
 		];
 
 		// Update data parkir
@@ -125,6 +129,18 @@ class ParkirModel extends CI_Model
 
 		$response->type_message = 'success';
 		$response->message = 'Check out berhasil, terima kasih telah berkunjung, semoga harimu menyenangkan';
+
+		return $response;
+	}
+
+	public function delete_parkir($id_parkir)
+	{
+		$response = create_response();
+		$this->db->where('id_parkir', $id_parkir);
+		$this->db->delete('parkir');
+
+		$response->type_message = "success";
+		$response->message = "Berhasil menghapus Jenis Kendaraan.";
 
 		return $response;
 	}

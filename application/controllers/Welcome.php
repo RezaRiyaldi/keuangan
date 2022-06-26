@@ -16,10 +16,16 @@ class Welcome extends CI_Controller
 			redirect('user/login');
 		}
 
-		$kas = [
-			'per_tahun' => $this->parkir->get_jumlah_kas('tahun'),
-			'per_bulan' => $this->parkir->get_jumlah_kas('bulan'),
-			'per_hari' => $this->parkir->get_jumlah_kas('hari')
+		$kas_masuk = [
+			'per_tahun' => $this->parkir->get_jumlah_kas('tahun', 1),
+			'per_bulan' => $this->parkir->get_jumlah_kas('bulan', 1),
+			'per_hari' => $this->parkir->get_jumlah_kas('hari', 1)
+		];
+
+		$kas_keluar = [
+			'per_tahun' => $this->parkir->get_jumlah_kas('tahun', 0),
+			'per_bulan' => $this->parkir->get_jumlah_kas('bulan', 0),
+			'per_hari' => $this->parkir->get_jumlah_kas('hari', 0)
 		];
 
 		$parkir_active = $this->parkir->get_jumlah_parkir('active');
@@ -28,7 +34,8 @@ class Welcome extends CI_Controller
 		$data = [
 			'title' => 'Dashboard',
 			'content' => 'dashboard',
-			'jumlah_kas' => $kas,
+			'jumlah_kas_masuk' => $kas_masuk,
+			'jumlah_kas_keluar' => $kas_keluar,
 			'parkir_active' => $parkir_active,
 			'parkir_non_active' => $parkir_non_active
 		];

@@ -16,7 +16,7 @@
 		<li class="menu-item <?= $this->uri->segment(1) == '' ? 'active' : ''; ?>">
 			<a href="<?= base_url() ?>" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-home-circle"></i>
-				<div data-i18n="Analytics">Dashboard</div>
+				<div data-i18n="Dashboard">Dashboard</div>
 			</a>
 		</li>
 
@@ -31,7 +31,7 @@
 				echo 'active open';
 			} ?>">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
-				<i class="menu-icon tf-icons bx bx-dock-top"></i>
+				<i class="menu-icon tf-icons bx bx-user"></i>
 				<div data-i18n="User">User</div>
 			</a>
 			<ul class="menu-sub">
@@ -55,7 +55,14 @@
 				<?php endif ?>
 			</ul>
 		</li>
-		<li class="menu-header small text-uppercase"><span class="menu-header-text">Parkir</span></li>
+
+		<li class="menu-item <?= $this->uri->segment(1) == 'kas' ? 'active' : '' ?>">
+			<a href="<?= base_url() ?>kas" class="menu-link">
+				<i class='menu-icon bx bx-wallet'></i>
+				<div data-i18n="Kas">Kas</div>
+			</a>
+		</li>
+		<!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Parkir</span></li> -->
 		<li class="menu-item 
 			<?php
 			if (

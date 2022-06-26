@@ -1,12 +1,26 @@
 <div class="card mb-3">
-	<h3 class="card-header">Laporan Keuangan</h3>
+	<div class="card-header d-flex justify-content-between">
+		<h3 class="align-middle my-auto">Laporan Kas</h3>
+		<?php if ($this->session->role == 'Admin' || $this->session->role == 'Keuangan') : ?>
+			<a href="<?= base_url() ?>kas/cetak_laporan_kas" class="btn btn-success">Cetak Laporan</a>
+		<?php endif ?>
+	</div>
 </div>
 <div class="row mb-3">
 	<div class="col-md-4 mb-3">
 		<div class="card">
 			<h5 class="card-header">Hari Ini (<?= date('d F') ?>)</h5>
 			<div class="card-body">
-				<p class="mb-0">Pemasukan: <b>Rp. <?= $jumlah_kas['per_hari']->jumlah == '' ? '0' : $jumlah_kas['per_hari']->jumlah ?></b></p>
+				<table width="100%">
+					<tr>
+						<td>Pemasukan</td>
+						<th>Rp. <?= $jumlah_kas_masuk['per_hari']->jumlah == '' ? '0' : $jumlah_kas_masuk['per_hari']->jumlah ?></th>
+					</tr>
+					<tr>
+						<td>Pengeluaran</td>
+						<th>Rp. <?= $jumlah_kas_keluar['per_hari']->jumlah == '' ? '0' : $jumlah_kas_keluar['per_hari']->jumlah ?></th>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -14,7 +28,16 @@
 		<div class="card">
 			<h5 class="card-header">Bulan Ini (<?= date('F Y') ?>)</h5>
 			<div class="card-body">
-				<p class="mb-0">Pemasukan: <b>Rp. <?= $jumlah_kas['per_bulan']->jumlah == '' ? '0' : $jumlah_kas['per_bulan']->jumlah ?></b></p>
+				<table width="100%">
+					<tr>
+						<td>Pemasukan</td>
+						<th>Rp. <?= $jumlah_kas_masuk['per_bulan']->jumlah == '' ? '0' : $jumlah_kas_masuk['per_bulan']->jumlah ?></th>
+					</tr>
+					<tr>
+						<td>Pengeluaran</td>
+						<th>Rp. <?= $jumlah_kas_keluar['per_bulan']->jumlah == '' ? '0' : $jumlah_kas_keluar['per_bulan']->jumlah ?></th>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -22,14 +45,28 @@
 		<div class="card">
 			<h5 class="card-header">Tahun Ini (<?= date('Y') ?>)</h5>
 			<div class="card-body">
-				<p class="mb-0">Pemasukan: <b>Rp. <?= $jumlah_kas['per_tahun']->jumlah == '' ? '0' : $jumlah_kas['per_tahun']->jumlah ?></b></p>
+				<table width="100%">
+					<tr>
+						<td>Pemasukan</td>
+						<th>Rp. <?= $jumlah_kas_masuk['per_tahun']->jumlah == '' ? '0' : $jumlah_kas_masuk['per_tahun']->jumlah ?></th>
+					</tr>
+					<tr>
+						<td>Pengeluaran</td>
+						<th>Rp. <?= $jumlah_kas_keluar['per_tahun']->jumlah == '' ? '0' : $jumlah_kas_keluar['per_tahun']->jumlah ?></th>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="card mb-3">
-	<h3 class="card-header">Laporan Parkir</h3>
+	<div class="card-header d-flex justify-content-between">
+		<h3 class="align-middle my-auto">Laporan Parkir</h3>
+		<?php if ($this->session->role == 'Admin' || $this->session->role == 'Parkir') : ?>
+			<a href="<?= base_url() ?>parkir/cetak_laporan_parkir" class="btn btn-success">Cetak Laporan</a>
+		<?php endif ?>
+	</div>
 </div>
 
 <div class="row">

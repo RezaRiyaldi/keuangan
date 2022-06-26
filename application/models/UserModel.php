@@ -25,8 +25,9 @@ class UserModel extends CI_Model
 		$response = create_response();
 		$foto = '';
 		$jenis_kelamin = $input->jenis_kelamin;
+		// dd($input);
 
-		if ($jenis_kelamin == 'Laki - laki') {
+		if ($jenis_kelamin == 1) {
 			$foto = 'default-man.png';
 		} else {
 			$foto = 'default-woman.png';

@@ -58,6 +58,10 @@ $route['translate_uri_dashes'] = FALSE;
 $route['user/login'] = 'Auth/login';
 $route['user/logout'] = 'Auth/logout';
 
+// Kas
+$route['kas'] = 'Kas';
+$route['kas/tambah-pengeluaran'] = 'Kas/tambah_pengeluaran';
+
 // User
 $route['setting-profile'] = 'Auth/setting_profile';
 $route['user-manage'] = 'Admin/user_manage';
@@ -70,6 +74,7 @@ $route['user/delete-user/(:any)'] = 'Admin/delete_user/$1';
 $route['parkir-manage'] = 'Parkir/parkir_manage';
 $route['parkir/tambah-parkir'] = 'Parkir/tambah_parkir';
 $route['parkir/selesai/(:any)'] = 'Parkir/selesai/$1';
+$route['parkir/delete-parkir/(:any)'] = 'Parkir/delete_parkir/$1';
 
 // Jenis Kendaraan
 $route['jenis-kendaraan-manage'] = 'Parkir/jenis_kendaraan_manage';

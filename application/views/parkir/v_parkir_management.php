@@ -78,6 +78,7 @@
 						<th>Jenis Kendaraan</th>
 						<th>Plat Nomer</th>
 						<th>Petugas</th>
+						<th>Aksi</th>
 					</tr>
 				</thead>
 
@@ -98,6 +99,9 @@
 									<td><?= $parkir->jenis_kendaraan ?></td>
 									<td><?= $parkir->plat ?></td>
 									<td><?= $parkir->nama_lengkap ?></td>
+									<td>
+										<a href="<?= base_url() ?>parkir/delete-parkir/<?= $parkir->id_parkir ?>" class="btn btn-danger btn-sm">Hapus</a>
+									</td>
 								</tr>
 
 						<?php endif;

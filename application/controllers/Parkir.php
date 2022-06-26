@@ -1,4 +1,8 @@
 <?php
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Parkir extends CI_Controller
 {
 	public function __construct()
@@ -13,12 +17,51 @@ class Parkir extends CI_Controller
 		}
 	}
 
+	public function cetak_laporan_parkir()
+	{	
+		$all_parkir = $this->parkir->get_all_parkir();
+
+		// dd($all_parkir);
+		$spreadsheet = new Spreadsheet();
+		$filename = 'laporan-parkir_' . date('Y-m-d_H-i-s');
+		$no = 1;
+		$x = 2;
+
+		// Setting Value
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->setCellValue('A1', 'No');
+		$sheet->setCellValue('B1', 'Jenis Kendaraan');
+		$sheet->setCellValue('C1', 'Nomor Polisi');
+		$sheet->setCellValue('D1', 'Status');
+		$sheet->setCellValue('E1', 'Waktu Masuk');
+		$sheet->setCellValue('F1', 'Waktu Keluar');
+		$sheet->setCellValue('G1', 'Harga Parkir');
+
+		foreach ($all_parkir as $parkir) {
+			$sheet->setCellValue('A' . $x, $no++);
+			$sheet->setCellValue('B' . $x, $parkir->jenis_kendaraan);
+			$sheet->setCellValue('C' . $x, $parkir->plat);
+			$sheet->setCellValue('D' . $x, $parkir->status);
+			$sheet->setCellValue('E' . $x, $parkir->jam_masuk . " " . $parkir->tanggal_parkir);
+			$spreadsheet->getActiveSheet()->setCellValue('F' . $x, $parkir->jam_keluar . " " . $parkir->tanggal_keluar);
+			$spreadsheet->getActiveSheet()->setCellValue('G' . $x, $parkir->harga_parkir);
+
+			$x++;
+		}
+
+
+		// header('Content-Type: application/');
+		header('Content-Disposition: attachment;filename=' . $filename . ".xlsx");
+		header('Cache-Control: max-age=0');
+
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+	}
+
 	public function parkir_manage()
 	{
 		$get_all_parkir = $this->parkir->get_all_parkir();
 		$get_all_jenis_kendaraan = $this->parkir->get_all_jenis_kendaraan();
-
-		// dd($get_all_parkir);
 
 		if (!$get_all_jenis_kendaraan) {
 			$this->session->set_flashdata('error', 'Mohon tambahkan jenis kendaraan terlebih dahulu!');
@@ -96,6 +139,15 @@ class Parkir extends CI_Controller
 		];
 
 		$this->load->view('layout/wrapper', $data);
+	}
+
+	public function delete_parkir($id_parkir)
+	{
+		$delete = $this->parkir->delete_parkir($id_parkir);
+
+		$this->session->set_flashdata($delete->type_message, $delete->message);
+
+		redirect('parkir-manage');
 	}
 
 	public function tambah_jenis_kendaraan()
