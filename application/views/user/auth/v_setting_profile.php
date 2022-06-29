@@ -40,7 +40,7 @@
 					</div>
 				</div>
 			</div>
-			<hr class="my-0" />
+			<!-- <hr class="my-0" />
 			<div class="card-body">
 				<h3>Ubah Akun</h3>
 				<form action="" method="POST">
@@ -77,7 +77,7 @@
 					<button type="submit" class="btn btn-warning">Edit Akun</button>
 				</form>
 
-			</div>
+			</div> -->
 			<!-- /Account -->
 		</div>
 	</div>
